@@ -1,3 +1,12 @@
+/**
+ * @file: ResponseRequest.java
+ * 
+ * @author: Xintong Yu & Hao Wang <@andrew.cmu.edu>
+ * 
+ * @date: Feb 10, 2014 
+ * 
+ */
+
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
@@ -87,6 +96,8 @@ class RespondRequest {
 			arrayStream.close();
 			//transfer the byte array to String
 			respond_body = new String(bytes, "ISO-8859-1");
+			
+			
 			
 		} else {
 			BufferedReader br = new BufferedReader(new FileReader(new File(
