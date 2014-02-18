@@ -78,6 +78,10 @@ class RespondRequest {
 		respond_header += "Content-Type: " + type + " \r\n";
 		respond_header += "\r\n";
 
+		//if the request method is HEAD, then just return status line and the headers
+		if(method.equalsIgnoreCase("HEAD"))
+			return respond_status+respond_header;
+		
 		/*set body*/
 		String fullPath = path + url;
 		System.out.println("reading file : " + fullPath);
