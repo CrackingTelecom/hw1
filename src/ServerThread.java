@@ -35,11 +35,6 @@ public class ServerThread implements Runnable {
 
 			buffer = inStream.readLine();
 
-			/*
-			 * System.out.println("Read from client " + socket.getInetAddress()
-			 * + ":" + socket.getPort() + " " + buffer.toString());
-			 */
-
 			RespondRequest request = new RespondRequest();
 			String respond = request.respond(buffer,path);
 			outStream.writeBytes(respond);
