@@ -40,7 +40,7 @@ public class ServerThread implements Runnable {
 			outStream.writeBytes(respond);
 			outStream.flush();
 
-			// System.out.println(respond);
+			//System.out.println(respond);
 
 			socket.close();
 		} catch (IOException e) {

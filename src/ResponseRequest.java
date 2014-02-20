@@ -13,6 +13,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Arrays;
 
 import javax.imageio.ImageIO;
 
@@ -50,7 +51,9 @@ class RespondRequest {
 		if (url.equals("/")) {
 			url += "index.html";
 		}
-		if (!url.equals("/index.html")) {
+		String fullPath = path + url;
+		File dirFile = new File(fullPath);
+		if (!dirFile.exists()) {
 			buildResponseStatus(404);
 			return respond_status;
 		}
@@ -72,9 +75,10 @@ class RespondRequest {
 			buildResponseStatus(400);
 			return respond_status;
 		}
-		String[] httpVersion = strings[1].split("\\.");
-		if ( !(httpVersion[0].equals('1') && 
-			  (httpVersion[1].equals('0') || httpVersion[1].equals('1')))) {
+
+		String[] httpVersion = strings[1].trim().split("\\.");
+		if ( ! (httpVersion[0].equals("1") && 
+			   (httpVersion[1].equals("0") || httpVersion[1].equals("1") ) ) ) {
 			buildResponseStatus(505);
 			return respond_status;
 		}
@@ -90,14 +94,12 @@ class RespondRequest {
 			type = "text/css";
 		respond_header += "Content-Type: " + type + " \r\n";
 		respond_header += "Connection: close\r\n";
-		respond_header += "\r\n";
 
 		//if the request method is HEAD, then just return status line and the headers
 		if(method.equalsIgnoreCase("HEAD"))
 			return respond_status + respond_header;
 		
 		/*set body*/
-		String fullPath = path + url;
 		System.out.println("reading file : " + fullPath);
 
 		try {
@@ -130,8 +132,11 @@ class RespondRequest {
 			buildResponseStatus(500);
 			return respond_status;
 		}
+		
+		System.out.println(respond_status);
 
 		respond_header += "Content-Length: " + Integer.toString(respond_body.length()) + "\r\n";
+		respond_header += "\r\n";
 		String respond = respond_status + respond_header + respond_body;
 		return respond;
 	}
