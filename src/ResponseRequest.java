@@ -5,6 +5,8 @@
  * 
  * @date: Feb 10, 2014 
  * 
+ * @functionality: parse http request line and build response conten.
+ * 
  */
 
 import java.awt.image.BufferedImage;
@@ -132,8 +134,6 @@ class RespondRequest {
 			buildResponseStatus(500);
 			return respond_status;
 		}
-		
-		System.out.println(respond_status);
 
 		respond_header += "Content-Length: " + Integer.toString(respond_body.length()) + "\r\n";
 		respond_header += "\r\n";
